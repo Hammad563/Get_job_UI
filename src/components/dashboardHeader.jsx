@@ -16,6 +16,9 @@ const DashboardHeader = () => {
   const dispatch = useDispatch()
   let location = useLocation();
   let currentUser = useSelector( (state) => state.auth.user)
+  let currentUserProfile = useSelector( (state) => state.userProfile.profile)
+
+
   const navigation = [
     { name: "Home", path: "/" },
     { name: "Profile", path: "/profile/overview" },
@@ -44,7 +47,7 @@ const DashboardHeader = () => {
                       {navigation.map((item) => (
                         <Link
                           to={item.path}
-                          replace
+                          
                           key={item.name}
                           className={classNames(
                             item.path == location.pathname
@@ -101,8 +104,8 @@ const DashboardHeader = () => {
                           <Menu.Item>
                             <Link
                               className="block px-4 py-2 text-sm text-gray-700"
-                              to="settings"
-                              replace
+                              to="/profile/overview"
+                             
                             >
                               Profile
                             </Link>
@@ -110,10 +113,19 @@ const DashboardHeader = () => {
                           <Menu.Item>
                             <Link
                               className="block px-4 py-2 text-sm text-gray-700"
-                              to="settings"
-                              replace
+                              to="/settings"
+                             
                             >
                               Settings
+                            </Link>
+                          </Menu.Item>
+                          <Menu.Item>
+                            <Link
+                              className="block px-4 py-2 text-sm text-gray-700"
+                              to={`/company`}
+                             
+                            >
+                              Companies
                             </Link>
                           </Menu.Item>
                           <Menu.Item>
@@ -146,7 +158,7 @@ const DashboardHeader = () => {
                     {navigation.map((item) => (
                         <Link
                           to={item.path}
-                          replace
+                        
                           key={item.name}
                           className={classNames(
                             item.path == location.pathname
@@ -184,7 +196,7 @@ const DashboardHeader = () => {
                             <Link
                               className="block px-4 py-2 text-sm text-white"
                               to="/profile/overview"
-                              replace
+                              
                             >
                               Profile
                             </Link>
@@ -192,7 +204,7 @@ const DashboardHeader = () => {
                             <Link
                               className="block px-4 py-2 text-sm text-white"
                               to="/settings"
-                              replace
+                              
                             >
                               Settings
                             </Link>

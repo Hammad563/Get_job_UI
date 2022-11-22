@@ -1,30 +1,31 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import { Fragment } from "react";
 import { Button } from "@material-tailwind/react";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const ProfileHeader = () => {
+const CompanyHeader = (props) => {
   const dispatch = useDispatch()
   let location = useLocation();
+  let { id } = useParams(); 
 
   const navigation = [
-    { name: "Summary", path: "/profile/overview" },
-    { name: "Edit", path: "/profile/edit" },
-    { name: "Resume", path: "/profile/resume" },
+    { name: "Companies", path: "/company" },
+    { name: "Your Jobs", path: `/company/${id}` },
+    { name: "Overview", path: "/company" },
   ];
-
   
 
   return (
-    <div className="min-h-full">
+    <div className="min-h-full mt-5">
       <Disclosure as="nav" className="bg-white">
         {({ open }) => (
           <>
@@ -37,7 +38,6 @@ const ProfileHeader = () => {
                       {navigation.map((item) => (
                         <Link
                           to={item.path}
-                      
                           key={item.name}
                           className={classNames(
                             item.path == location.pathname
@@ -52,6 +52,7 @@ const ProfileHeader = () => {
                           {item.name}
                         </Link>
                       ))}
+                      <button onClick={() => props.setPostJob(true)} className="inline-flex w-full justify-center rounded-md border border-transparent bg-sky-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">Post a job</button>
                     </div>
                   </div>
                 </div>
@@ -68,4 +69,4 @@ const ProfileHeader = () => {
   );
 };
 
-export default ProfileHeader;
+export default CompanyHeader;

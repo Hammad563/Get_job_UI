@@ -7,6 +7,10 @@ import { initUser } from '../../services/authServices';
 import DashboardHeader from '../../components/dashboardHeader';
 import ProfileSummary from './profile';
 import ProfileEdit from './profileEdit';
+import { setProfile } from '../../redux/actions/profileActions';
+import { fetchProfile } from '../../services/userProfileServices';
+import CompanyDashboard from './companyDashboard';
+import CompanyIndex from './companyIndex';
 
 
 
@@ -19,7 +23,7 @@ function UserRouter(props) {
     if(!currentUser && !loading){
       try{
         let res = initUser(dispatch)
-        console.log("res", res)
+        if(res) fetchProfileAsync()
         if(!res){
           navigate('/auth')
         }
@@ -29,6 +33,13 @@ function UserRouter(props) {
     }
   }, [currentUser])
 
+  const fetchProfileAsync = async () => {
+    let res = await fetchProfile(dispatch)
+    if(res){
+      dispatch(setProfile(res))
+    }
+  }
+
       return(
         <>
         <DashboardHeader></DashboardHeader>
@@ -36,6 +47,7 @@ function UserRouter(props) {
             <Route path="/" element={<HomePage></HomePage>}></Route>
             <Route path="/profile/overview" element={<ProfileSummary></ProfileSummary>}></Route>
             <Route path="/profile/edit" element={<ProfileEdit></ProfileEdit>}></Route>
+            <Route path="/company/*" element={<CompanyIndex></CompanyIndex>}></Route>
         </Routes>
         </>
       )

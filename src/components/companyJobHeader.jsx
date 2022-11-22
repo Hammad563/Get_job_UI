@@ -1,30 +1,32 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import { Fragment } from "react";
 import { Button } from "@material-tailwind/react";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const ProfileHeader = () => {
+const CompanyJobHeader = (props) => {
   const dispatch = useDispatch()
   let location = useLocation();
+  let { id, jobId } = useParams(); 
 
   const navigation = [
-    { name: "Summary", path: "/profile/overview" },
-    { name: "Edit", path: "/profile/edit" },
-    { name: "Resume", path: "/profile/resume" },
+    { name: "Back to jobs", path: `/company/${id}` },
+    { name: "Overview", path: `/company/${id}/${jobId}` },
+    { name: "Manage applications", path: `/company/${id}/${jobId}/applications`},
+    { name: "Edit", path: `/company/${id}/${jobId}/edit` }
   ];
-
   
 
   return (
-    <div className="min-h-full">
+    <div className="min-h-full mt-5">
       <Disclosure as="nav" className="bg-white">
         {({ open }) => (
           <>
@@ -37,7 +39,6 @@ const ProfileHeader = () => {
                       {navigation.map((item) => (
                         <Link
                           to={item.path}
-                      
                           key={item.name}
                           className={classNames(
                             item.path == location.pathname
@@ -68,4 +69,4 @@ const ProfileHeader = () => {
   );
 };
 
-export default ProfileHeader;
+export default CompanyJobHeader;
