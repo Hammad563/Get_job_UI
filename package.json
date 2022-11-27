@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-draft-wysiwyg": "^1.15.0",
     "react-google-places-autocomplete": "^3.4.0",
+    "react-js-pagination": "^3.0.3",
     "react-load-script": "^0.0.6",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",

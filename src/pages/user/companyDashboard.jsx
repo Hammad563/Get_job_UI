@@ -26,6 +26,7 @@ import { createJob, fetchCompanyJobs } from "../../services/companyServices";
 import { Link, useParams } from "react-router-dom";
 import moment from "moment";
 import RichTextEditor from "../../components/richTextEditor";
+import { date_formater } from "../../helpers/componentHelpers";
 
 
 const jobTypeOptions = [
@@ -561,9 +562,7 @@ const CompanyDashboard = () => {
                                 aria-hidden="true"
                               />
                               Created on{" "}
-                              {moment(job.created_at).format(
-                                "YYYY/MM/DD, h:mm a"
-                              )}
+                              {date_formater(job.created_at, "date_time")}
                             </div>
                           </div>
                         </div>
